@@ -125,4 +125,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_storage"),
 
 ]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_serve")
+STATIC_ROOT = (os.path.join(os.path.dirname(BASE_DIR), "static_serve"))

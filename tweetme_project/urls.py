@@ -24,7 +24,7 @@ from tweetme import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
-    path('tweet/', include('tweets.urls')),
+    path('tweet/', include(('tweets.urls', "Tweet"), namespace='tweet')),
 
 ]
 
