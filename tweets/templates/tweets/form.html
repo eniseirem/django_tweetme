@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form class='form' method='POST' action="">
+
+<form class='form' method='POST' action="{{ action_url}}">
     {% csrf_token %}
 {{ form.as_p}}
-    <input type="submit" value="{{ btn_title }}" />
+    <input type="submit" class="btn btn-primary" value="{{ btn_title }}" />
     </form>
-</body>
-</html>

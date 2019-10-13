@@ -19,11 +19,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from tweets.views import TweetListView
 from tweetme import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name="home"),
+    path('', TweetListView.as_view(), name="home"),
     path('tweet/', include(('tweets.urls', "Tweet"), namespace='tweet')),
 
 ]

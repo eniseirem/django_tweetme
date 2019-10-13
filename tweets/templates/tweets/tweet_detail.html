@@ -2,9 +2,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{object.content}}<br/>
-{{ object.user}}<br/>
+
+<div class="row">
+    <div class="col-sm-3 ml-auto" style="background-color: red">
+<h1>{{object.user}}</h1>
+</div>
+<div class="col sm-9 mr-auto">
+    {{object.content}} <br/>
 {{ object.timestamp|timesince}}
+    </div>
 
 
+</div>
 {% endblock content %}
