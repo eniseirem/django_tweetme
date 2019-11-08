@@ -1,11 +1,72 @@
 {% extends "base.html" %}
 
+{% block script %}
+
+
+
+<script>
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const qetq = urlParams.get('q');
+
+    $(document).ready(function () {
+        console.log("working");
+        var query = qetq;
+        var tweetList = [];
+        function parseTweets(){
+            if(tweetList == 0){
+                $("#tweet-container").text("No tweets currently found.")
+            }
+
+            else{ //tweet exist, parse them
+            $.each(data, function(key,value){
+                var tweetKey = key;
+                var tweetContent = value.content;
+                var tweetUser = value.user;
+                $("#tweet-container").append(
+                    " <div class=\"media-body\">" + tweetContent + "<br/> via "
+                    +  tweetUser.username + " | " +  "<a href=\"#\"> View </a>" + "</div><hr>"
+                )
+
+            })
+
+        }}
+
+    $.ajax({
+        url:"/api/tweet/",
+        data:{
+          "q" : query
+        },
+        //(ONLY IN VIEW){% url 'tweet-api:list' %}
+        method: "GET",
+
+        success: function(data){
+            //console.log(data)
+            tweetList = data
+            parseTweets()
+
+        },
+
+        error : function(data){
+            console.log("error")
+            console.log(data)
+        }
+        })
+
+
+});
+    
+</script>
+{% endblock script %}
+
+
+
+
 {% block content %}
 
+
 <div class='row'>
-    <div class="col-sm-3" style="background-color: red">
-        <h1>{{request.user}}</h1>
-    </div>
+
 
     <div class='col-sm-9'>
         {% if not request.GET.q %}
@@ -15,34 +76,43 @@
         </div>
         <hr/>
         {% endif %}
-        {% for object in object_list %}
-        <div class="media">
-            <div class="media-left">
-                <a class="pr-3" href="#">
-                    {% if object.image %}
-                    <img src="...">
-                    {%endif %}
-                </a>
-            </div>
-            <div class="media-body">
 
-                {{object.content}}<br/>
-                via {{ object.user}} |
-                {{ object.timestamp|timesince}} ago | <a href="{{object.get_absolute_url }}">View </a>
-            </div>
-        </div>
 
-        <hr>
+     <div id="tweet-container">
+     </div>
 
-        {% empty %}
-        {% if request.GET.q %}
-        <p>No tweets found.</p>
 
-        {% else %}
-        <p>No tweets to show.</p>
-        {% endif %}
-        {% endfor %}
-        {%endblock content %}
+        <!--{% for object in object_list %}-->
+        <!--<div class="media">-->
+                <!--<div class="col-sm-3" style="background-color: red">-->
+        <!--<h1>{{object.user}}</h1>-->
+    <!--</div>-->
+            <!--<div class="media-left">-->
+                <!--<a class="pr-3" href="#">-->
+                    <!--{% if object.image %}-->
+                    <!--<img src="...">-->
+                    <!--{%endif %}-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div class="media-body">-->
+
+                <!--{{object.content}}<br/>-->
+                <!--via {{ object.user}} |-->
+                <!--{{ object.timestamp|timesince}} ago | <a href="{{object.get_absolute_url }}">View </a>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<hr>-->
+
+        <!--{% empty %}-->
+        <!--{% if request.GET.q %}-->
+        <!--<p>No tweets found.</p>-->
+
+        <!--{% else %}-->
+        <!--<p>No tweets to show.</p>-->
+        <!--{% endif %}-->
+        <!--{% endfor %}-->
+        <!--{%endblock content %}-->
 
     </div>
 </div>

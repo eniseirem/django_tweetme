@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin #use this as a ready to use mixin
 from django.db.models import Q
-from django.views.generic import \
-    (
+from django.views.generic import (
     CreateView,
     ListView,
     DeleteView,
@@ -72,6 +71,8 @@ class TweetListView(ListView):
         context['create_url'] = reverse_lazy('tweet:create')
         # context["another list"] = Tweet.objects.all()
         return context
+
+
 
 #Function Based
 # def tweet_detail_view(request, pk=None):

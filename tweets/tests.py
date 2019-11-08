@@ -12,8 +12,8 @@ class TweetModelTestCase(TestCase):
        some_random_user = User.objects.create(username='enise33333333')
     def test_tweet_item(self):
         obj = Tweet.objects.create(
-            user = User.objects.first(),
-            content = 'Some random content'
+            user=User.objects.first(),
+            content='Some random content'
         )
         self.assertTrue(obj.content == 'Some random content')
         self.assertTrue(obj.id == 1)
